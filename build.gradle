@@ -8,27 +8,19 @@ buildscript {
 
 plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
-    id 'fabric-loom' version '0.7-SNAPSHOT'
+    id 'fabric-loom' version '0.8-SNAPSHOT'
     id 'maven-publish'
 }
 
 repositories {
     mavenCentral()
     maven {
-        name = 'Bortexel'
-        url = 'https://maven.pkg.github.com/bortexel/bortexel4j'
-        credentials {
-            username = BortexelUsername
-            password = BortexelPassword
-        }
+        name = 'RuscalWorld Releases'
+        url = 'https://maven.ruscalworld.ru/releases'
     }
     maven {
-        name = 'RuscalWorld'
-        url = 'https://maven.pkg.github.com/ruscalworld/storagelib'
-        credentials {
-            username = BortexelUsername
-            password = BortexelPassword
-        }
+        name = 'RuscalWorld Releases'
+        url = 'https://maven.ruscalworld.ru/releases'
     }
     maven {
         name 'm2-dv8tion'
