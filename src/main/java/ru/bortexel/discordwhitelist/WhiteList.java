@@ -63,11 +63,15 @@ public class WhiteList {
         // Add members that are whitelisted now
         for (Member member : members) {
             if (this.getWhitelistedMembers().containsKey(member.getId())) continue;
-            Account account = Account.getByDiscordID(member.getId(), this.getMod().getClient()).execute();
-            Account.AccountUsers users = account.getUsers(this.getMod().getClient()).execute();
-            for (User user : users.getUsers()) {
-                this.addPlayer(member.getId(), user.getUsername());
-                logger.info("Adding {} ({}) to the whitelist", user.getUsername(), member.getUser().getAsTag());
+            try {
+                Account account = Account.getByDiscordID(member.getId(), this.getMod().getClient()).execute();
+                Account.AccountUsers users = account.getUsers(this.getMod().getClient()).execute();
+                for (User user : users.getUsers()) {
+                    this.addPlayer(member.getId(), user.getUsername());
+                    logger.info("Adding {} ({}) to the whitelist", user.getUsername(), member.getUser().getAsTag());
+                }
+            } catch (Exception e) {
+                logger.warn("Unable to add {} to whitelist", member.getUser().getAsTag(), e);
             }
         }
     }
