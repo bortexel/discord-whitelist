@@ -64,9 +64,11 @@ public class WhiteList {
         for (Member member : members) {
             if (this.getWhitelistedMembers().containsKey(member.getId())) continue;
             Account account = Account.getByDiscordID(member.getId(), this.getMod().getClient()).execute();
-            User user = User.getByID(account.getUserID(), this.getMod().getClient()).execute();
-            this.addPlayer(member.getId(), user.getUsername());
-            logger.info("Adding {} ({}) to the whitelist", user.getUsername(), member.getUser().getAsTag());
+            Account.AccountUsers users = account.getUsers(this.getMod().getClient()).execute();
+            for (User user : users.getUsers()) {
+                this.addPlayer(member.getId(), user.getUsername());
+                logger.info("Adding {} ({}) to the whitelist", user.getUsername(), member.getUser().getAsTag());
+            }
         }
     }
 
